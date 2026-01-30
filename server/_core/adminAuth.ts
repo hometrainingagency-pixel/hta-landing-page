@@ -10,9 +10,19 @@ import { ENV } from "./env";
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./cookies";
 
-// Configuration admin par défaut
-const ADMIN_EMAIL = "nathankalala100@gmail.com";
-const ADMIN_PASSWORD = "ivette";
+// Configuration des admins
+const ADMINS = [
+    {
+        email: "nathankalala100@gmail.com",
+        password: "ivette",
+        name: "Administrateur HTA"
+    },
+    {
+        email: "hometrainingagency@gmail.com",
+        password: "trainingtogether",
+        name: "Home Training Agency"
+    }
+];
 
 // Hash du mot de passe
 function hashPassword(password: string): string {
@@ -24,7 +34,7 @@ function verifyPassword(password: string, hash: string): boolean {
     return hashPassword(password) === hash;
 }
 
-// Initialiser l'utilisateur admin s'il n'existe pas
+// Initialiser les utilisateurs admin
 export async function initAdminUser(): Promise<void> {
     const db = await getDb();
     if (!db) {
@@ -33,38 +43,40 @@ export async function initAdminUser(): Promise<void> {
     }
 
     try {
-        // Vérifier si l'admin existe déjà
-        const existingAdmin = await db
-            .select()
-            .from(users)
-            .where(eq(users.email, ADMIN_EMAIL))
-            .limit(1);
+        for (const admin of ADMINS) {
+            // Vérifier si l'admin existe déjà
+            const existingAdmin = await db
+                .select()
+                .from(users)
+                .where(eq(users.email, admin.email))
+                .limit(1);
 
-        if (existingAdmin.length === 0) {
-            // Créer l'utilisateur admin
-            await db.insert(users).values({
-                openId: `local_${ADMIN_EMAIL}`,
-                name: "Administrateur HTA",
-                email: ADMIN_EMAIL,
-                password: hashPassword(ADMIN_PASSWORD),
-                loginMethod: "local",
-                role: "admin",
-            });
-            logger.info("Admin user created successfully", { email: ADMIN_EMAIL });
-        } else {
-            // Force verify/update admin credentials and role
-            await db
-                .update(users)
-                .set({
-                    password: hashPassword(ADMIN_PASSWORD),
-                    role: "admin",
+            if (existingAdmin.length === 0) {
+                // Créer l'utilisateur admin
+                await db.insert(users).values({
+                    openId: `local_${admin.email}`,
+                    name: admin.name,
+                    email: admin.email,
+                    password: hashPassword(admin.password),
                     loginMethod: "local",
-                })
-                .where(eq(users.email, ADMIN_EMAIL));
-            logger.info("Admin user verified/updated", { email: ADMIN_EMAIL });
+                    role: "admin",
+                });
+                logger.info("Admin user created successfully", { email: admin.email });
+            } else {
+                // Force verify/update admin credentials and role
+                await db
+                    .update(users)
+                    .set({
+                        password: hashPassword(admin.password),
+                        role: "admin",
+                        loginMethod: "local",
+                    })
+                    .where(eq(users.email, admin.email));
+                logger.info("Admin user verified/updated", { email: admin.email });
+            }
         }
     } catch (error) {
-        logger.error("Failed to init admin user", error);
+        logger.error("Failed to init admin users", error);
     }
 }
 
@@ -133,6 +145,8 @@ export function registerAdminAuthRoutes(app: Express): void {
                     openId: user.openId,
                     email: user.email,
                     role: user.role,
+                    appId: ENV.appId,
+                    name: user.name,
                 },
                 ENV.cookieSecret || "dev-secret-key",
                 { expiresIn: "7d" }

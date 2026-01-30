@@ -25,6 +25,7 @@ import {
   Calendar,
   ChevronLeft,
   ChevronRight,
+  BookOpen,
 } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
@@ -59,12 +60,13 @@ export default function AdminContacts() {
     }
 
     // Créer le CSV
-    const headers = ["ID", "Nom complet", "Email", "Téléphone", "Date de soumission"];
+    const headers = ["ID", "Nom complet", "Email", "Téléphone", "Formation", "Date de soumission"];
     const rows = data.map((submission) => [
       submission.id.toString(),
       submission.fullName,
       submission.email,
       submission.phone,
+      submission.formation || "",
       format(new Date(submission.createdAt), "dd/MM/yyyy HH:mm", { locale: fr }),
     ]);
 
@@ -206,6 +208,12 @@ export default function AdminContacts() {
                         </TableHead>
                         <TableHead>
                           <div className="flex items-center gap-2">
+                            <BookOpen className="h-4 w-4" />
+                            Formation
+                          </div>
+                        </TableHead>
+                        <TableHead>
+                          <div className="flex items-center gap-2">
                             <Calendar className="h-4 w-4" />
                             Date de soumission
                           </div>
@@ -236,6 +244,9 @@ export default function AdminContacts() {
                             >
                               {submission.phone}
                             </a>
+                          </TableCell>
+                          <TableCell>
+                            {submission.formation || "-"}
                           </TableCell>
                           <TableCell>
                             {format(new Date(submission.createdAt), "dd MMM yyyy à HH:mm", {

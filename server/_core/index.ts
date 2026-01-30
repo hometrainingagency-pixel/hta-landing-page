@@ -46,8 +46,8 @@ async function startServer() {
   // Request logging
   app.use(requestLogger);
 
-  // Rate limiting (100 requests per minute per IP)
-  app.use(rateLimit(60000, 100));
+  // Rate limiting (500 requests per minute per IP)
+  app.use(rateLimit(60000, 500));
 
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));

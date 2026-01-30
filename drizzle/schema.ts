@@ -38,6 +38,7 @@ export const contactSubmissions = pgTable("contact_submissions", {
   fullName: varchar("full_name", { length: 255 }).notNull(),
   email: varchar("email", { length: 320 }).notNull(),
   phone: varchar("phone", { length: 50 }).notNull(),
+  formation: varchar("formation", { length: 255 }),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
 

@@ -27,6 +27,22 @@ import {
 } from "lucide-react";
 import { APP_LOGO } from "@/const";
 import { WhatsAppIcon, TikTokIcon } from "@/components/SocialIcons";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+const FORMATIONS = [
+  "Anglais pour francophones",
+  "Français pour anglophones",
+  "Français pour Francophones",
+  "Anglais pour anglophones",
+  "Programme Together / Anglais",
+  "Autre / Renseignements"
+];
 
 const heroSlides = [
   {
@@ -134,9 +150,8 @@ export default function Home() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Le backend attend fullName, email, phone
-    const { formation, ...backendData } = formData;
-    submitContact.mutate(backendData);
+    // Le backend attend fullName, email, phone et formation
+    submitContact.mutate(formData);
   };
 
   return (
@@ -218,7 +233,7 @@ export default function Home() {
                   <TikTokIcon className="h-5 w-5" />
                 </a>
               </div>
-              
+
               {/* Bouton Inscription */}
               <Button
                 onClick={() => scrollToSection("inscription")}
@@ -266,7 +281,7 @@ export default function Home() {
                 >
                   Inscription
                 </Button>
-                
+
                 {/* Icônes Sociales Mobile */}
                 <div className="flex items-center gap-6 mt-4">
                   <a
@@ -332,9 +347,8 @@ export default function Home() {
           {heroSlides.map((slide, index) => (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-[900ms] ease-in-out cursor-pointer ${
-                index === currentSlide ? "opacity-100" : "opacity-0"
-              }`}
+              className={`absolute inset-0 transition-opacity duration-[900ms] ease-in-out cursor-pointer ${index === currentSlide ? "opacity-100" : "opacity-0"
+                }`}
               style={{
                 backgroundImage: `url(${slide.image})`,
                 backgroundSize: "cover",
@@ -364,11 +378,10 @@ export default function Home() {
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`h-2 rounded-full transition-all ${
-                index === currentSlide
-                  ? "w-8 bg-blue-500"
-                  : "w-2 bg-white/50 hover:bg-white/80"
-              }`}
+              className={`h-2 rounded-full transition-all ${index === currentSlide
+                ? "w-8 bg-blue-500"
+                : "w-2 bg-white/50 hover:bg-white/80"
+                }`}
               aria-label={`Aller à la diapositive ${index + 1}`}
             />
           ))}
@@ -387,7 +400,7 @@ export default function Home() {
                 Qui sommes-nous ?
               </h2>
             </div>
-           </AnimatedSection>
+          </AnimatedSection>
 
           <AnimatedSection animationType="scroll-animate-slide-up">
             <div className="space-y-6 text-gray-300 text-lg leading-relaxed">
@@ -444,73 +457,73 @@ export default function Home() {
             {/* Formation 1 */}
             <AnimatedSection animationType="scroll-animate-scale" className="scroll-animate-delay-100">
               <Card className="group border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 hover:border-blue-500 transition-all duration-300 h-full">
-              <CardContent className="p-8">
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
-                  <Globe className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="mb-3 text-2xl font-bold text-white">
-                  Anglais pour francophones
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  Pour débutants ou intermédiaires désirant parler, comprendre
-                  et utiliser l'anglais au quotidien dans des contextes réels
-                  de la vie.
-                </p>
-              </CardContent>
+                <CardContent className="p-8">
+                  <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
+                    <Globe className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="mb-3 text-2xl font-bold text-white">
+                    Anglais pour francophones
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed">
+                    Pour débutants ou intermédiaires désirant parler, comprendre
+                    et utiliser l'anglais au quotidien dans des contextes réels
+                    de la vie.
+                  </p>
+                </CardContent>
               </Card>
             </AnimatedSection>
 
             {/* Formation 2 */}
             <AnimatedSection animationType="scroll-animate-scale" className="scroll-animate-delay-200">
               <Card className="group border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 hover:border-blue-500 transition-all duration-300 h-full">
-              <CardContent className="p-8">
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
-                  <BookOpen className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="mb-3 text-2xl font-bold text-white">
-                  Français pour anglophones
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  Un parcours complet pour maîtriser la langue française, de la
-                  base à l'expression avancée.
-                </p>
-              </CardContent>
+                <CardContent className="p-8">
+                  <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
+                    <BookOpen className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="mb-3 text-2xl font-bold text-white">
+                    Français pour anglophones
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed">
+                    Un parcours complet pour maîtriser la langue française, de la
+                    base à l'expression avancée.
+                  </p>
+                </CardContent>
               </Card>
             </AnimatedSection>
 
             {/* Formation 3 */}
             <AnimatedSection animationType="scroll-animate-scale" className="scroll-animate-delay-300">
               <Card className="group border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 hover:border-blue-500 transition-all duration-300 h-full">
-              <CardContent className="p-8">
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
-                  <FileText className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="mb-3 text-2xl font-bold text-white">
-                  Français pour Francophones
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  Revoir les fondamentaux, améliorer votre grammaire, enrichir
-                  votre vocabulaire et gagner en aisance.
-                </p>
-              </CardContent>
+                <CardContent className="p-8">
+                  <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
+                    <FileText className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="mb-3 text-2xl font-bold text-white">
+                    Français pour Francophones
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed">
+                    Revoir les fondamentaux, améliorer votre grammaire, enrichir
+                    votre vocabulaire et gagner en aisance.
+                  </p>
+                </CardContent>
               </Card>
             </AnimatedSection>
 
             {/* Formation 4 */}
             <AnimatedSection animationType="scroll-animate-scale" className="scroll-animate-delay-400">
               <Card className="group border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 hover:border-blue-500 transition-all duration-300 h-full">
-              <CardContent className="p-8">
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
-                  <MessageCircle className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="mb-3 text-2xl font-bold text-white">
-                  Anglais pour anglophones
-                </h3>
-                <p className="text-gray-300 leading-relaxed">
-                  Des séances axées sur la prononciation, la fluidité, le
-                  vocabulaire et l'expression naturelle.
-                </p>
-              </CardContent>
+                <CardContent className="p-8">
+                  <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
+                    <MessageCircle className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="mb-3 text-2xl font-bold text-white">
+                    Anglais pour anglophones
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed">
+                    Des séances axées sur la prononciation, la fluidité, le
+                    vocabulaire et l'expression naturelle.
+                  </p>
+                </CardContent>
               </Card>
             </AnimatedSection>
           </div>
@@ -557,51 +570,51 @@ export default function Home() {
               {/* Module 1 */}
               <AnimatedSection animationType="scroll-animate-scale" className="scroll-animate-delay-100">
                 <Card className="border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 h-full">
-                <CardContent className="p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-xl font-bold text-white">
-                    1
-                  </div>
-                  <h4 className="mb-2 text-xl font-bold text-white">
-                    Initiation
-                  </h4>
-                  <p className="text-gray-300">
-                    Les bases essentielles pour commencer à communiquer.
-                  </p>
-                </CardContent>
+                  <CardContent className="p-6">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-xl font-bold text-white">
+                      1
+                    </div>
+                    <h4 className="mb-2 text-xl font-bold text-white">
+                      Initiation
+                    </h4>
+                    <p className="text-gray-300">
+                      Les bases essentielles pour commencer à communiquer.
+                    </p>
+                  </CardContent>
                 </Card>
               </AnimatedSection>
 
               {/* Module 2 */}
               <AnimatedSection animationType="scroll-animate-scale" className="scroll-animate-delay-200">
                 <Card className="border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 h-full">
-                <CardContent className="p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-xl font-bold text-white">
-                    2
-                  </div>
-                  <h4 className="mb-2 text-xl font-bold text-white">Growth</h4>
-                  <p className="text-gray-300">
-                    Développement poussé du vocabulaire, des structures et de
-                    la fluidité.
-                  </p>
-                </CardContent>
+                  <CardContent className="p-6">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-xl font-bold text-white">
+                      2
+                    </div>
+                    <h4 className="mb-2 text-xl font-bold text-white">Growth</h4>
+                    <p className="text-gray-300">
+                      Développement poussé du vocabulaire, des structures et de
+                      la fluidité.
+                    </p>
+                  </CardContent>
                 </Card>
               </AnimatedSection>
 
               {/* Module 3 */}
               <AnimatedSection animationType="scroll-animate-scale" className="scroll-animate-delay-300">
                 <Card className="border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 h-full">
-                <CardContent className="p-6">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-xl font-bold text-white">
-                    3
-                  </div>
-                  <h4 className="mb-2 text-xl font-bold text-white">
-                    Production
-                  </h4>
-                  <p className="text-gray-300">
-                    Expression orale, dialogues, mise en situation, aisance
-                    générale.
-                  </p>
-                </CardContent>
+                  <CardContent className="p-6">
+                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-xl font-bold text-white">
+                      3
+                    </div>
+                    <h4 className="mb-2 text-xl font-bold text-white">
+                      Production
+                    </h4>
+                    <p className="text-gray-300">
+                      Expression orale, dialogues, mise en situation, aisance
+                      générale.
+                    </p>
+                  </CardContent>
                 </Card>
               </AnimatedSection>
             </div>
@@ -686,51 +699,51 @@ export default function Home() {
             {/* Pilier 1 */}
             <AnimatedSection animationType="scroll-animate-scale" className="scroll-animate-delay-100">
               <Card className="border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 text-center h-full">
-              <CardContent className="p-8">
-                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
-                  <Clock className="h-10 w-10 text-white" />
-                </div>
-                <h3 className="mb-3 text-2xl font-bold text-white">
-                  Flexibilité
-                </h3>
-                <p className="text-gray-300">
-                  Vous apprenez où et quand vous voulez
-                </p>
-              </CardContent>
+                <CardContent className="p-8">
+                  <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
+                    <Clock className="h-10 w-10 text-white" />
+                  </div>
+                  <h3 className="mb-3 text-2xl font-bold text-white">
+                    Flexibilité
+                  </h3>
+                  <p className="text-gray-300">
+                    Vous apprenez où et quand vous voulez
+                  </p>
+                </CardContent>
               </Card>
             </AnimatedSection>
 
             {/* Pilier 2 */}
             <AnimatedSection animationType="scroll-animate-scale" className="scroll-animate-delay-200">
               <Card className="border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 text-center h-full">
-              <CardContent className="p-8">
-                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
-                  <Lightbulb className="h-10 w-10 text-white" />
-                </div>
-                <h3 className="mb-3 text-2xl font-bold text-white">
-                  Innovation
-                </h3>
-                <p className="text-gray-300">
-                  Des méthodes modernes et motivantes
-                </p>
-              </CardContent>
+                <CardContent className="p-8">
+                  <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
+                    <Lightbulb className="h-10 w-10 text-white" />
+                  </div>
+                  <h3 className="mb-3 text-2xl font-bold text-white">
+                    Innovation
+                  </h3>
+                  <p className="text-gray-300">
+                    Des méthodes modernes et motivantes
+                  </p>
+                </CardContent>
               </Card>
             </AnimatedSection>
 
             {/* Pilier 3 */}
             <AnimatedSection animationType="scroll-animate-scale" className="scroll-animate-delay-300">
               <Card className="border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900 text-center h-full">
-              <CardContent className="p-8">
-                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
-                  <Target className="h-10 w-10 text-white" />
-                </div>
-                <h3 className="mb-3 text-2xl font-bold text-white">
-                  Pratique
-                </h3>
-                <p className="text-gray-300">
-                  Un apprentissage orienté mise en application réelle
-                </p>
-              </CardContent>
+                <CardContent className="p-8">
+                  <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 shadow-lg">
+                    <Target className="h-10 w-10 text-white" />
+                  </div>
+                  <h3 className="mb-3 text-2xl font-bold text-white">
+                    Pratique
+                  </h3>
+                  <p className="text-gray-300">
+                    Un apprentissage orienté mise en application réelle
+                  </p>
+                </CardContent>
               </Card>
             </AnimatedSection>
           </div>
@@ -766,107 +779,102 @@ export default function Home() {
 
           <AnimatedSection animationType="scroll-animate-slide-up">
             <Card className="border-slate-700 bg-gradient-to-br from-slate-800 to-slate-900">
-            <CardContent className="p-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <Label htmlFor="fullName" className="text-gray-200">
-                    Nom complet
-                  </Label>
-                  <Input
-                    id="fullName"
-                    type="text"
-                    required
-                    value={formData.fullName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, fullName: e.target.value })
-                    }
-                    placeholder="Jean Dupont"
-                    className="mt-2 bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-400 focus:border-blue-500"
-                  />
-                </div>
+              <CardContent className="p-8">
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <Label htmlFor="fullName" className="text-gray-200">
+                      Nom complet
+                    </Label>
+                    <Input
+                      id="fullName"
+                      type="text"
+                      required
+                      value={formData.fullName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, fullName: e.target.value })
+                      }
+                      placeholder="Jean Dupont"
+                      className="mt-2 bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-400 focus:border-blue-500"
+                    />
+                  </div>
 
-                <div>
-                  <Label htmlFor="email" className="text-gray-200">
-                    Adresse e-mail
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData({ ...formData, email: e.target.value })
-                    }
-                    placeholder="jean.dupont@example.com"
-                    className="mt-2 bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-400 focus:border-blue-500"
-                  />
-                </div>
+                  <div>
+                    <Label htmlFor="email" className="text-gray-200">
+                      Adresse e-mail
+                    </Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      placeholder="jean.dupont@example.com"
+                      className="mt-2 bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-400 focus:border-blue-500"
+                    />
+                  </div>
 
-                <div>
-                  <Label htmlFor="phone" className="text-gray-200">
-                    Téléphone
-                  </Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    required
-                    value={formData.phone}
-                    onChange={(e) =>
-                      setFormData({ ...formData, phone: e.target.value })
-                    }
-                    placeholder="+243 XX XXX XXXX"
-                    className="mt-2 bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-400 focus:border-blue-500"
-                  />
-                </div>
+                  <div>
+                    <Label htmlFor="formation" className="text-gray-200">
+                      Formation souhaitée
+                    </Label>
+                    <Select
+                      value={formData.formation}
+                      onValueChange={(value) =>
+                        setFormData({ ...formData, formation: value })
+                      }
+                    >
+                      <SelectTrigger className="mt-2 bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-400 focus:border-blue-500">
+                        <SelectValue placeholder="Sélectionnez une formation" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {FORMATIONS.map((formation) => (
+                          <SelectItem key={formation} value={formation}>
+                            {formation}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
 
-                <div>
-                  <Label htmlFor="formation" className="text-gray-200">
-                    Formation choisie
-                  </Label>
-                  <select
-                    id="formation"
-                    required
-                    value={formData.formation}
-                    onChange={(e) =>
-                      setFormData({ ...formData, formation: e.target.value })
-                    }
-                    className="mt-2 w-full rounded-md border border-slate-600 bg-slate-700/50 px-3 py-2 text-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  <div>
+                    <Label htmlFor="phone" className="text-gray-200">
+                      Téléphone
+                    </Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      required
+                      value={formData.phone}
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
+                      placeholder="+243 XX XXX XXXX"
+                      className="mt-2 bg-slate-700/50 border-slate-600 text-white placeholder:text-gray-400 focus:border-blue-500"
+                    />
+                  </div>
+
+
+
+                  <Button
+                    type="submit"
+                    size="lg"
+                    disabled={submitContact.isPending}
+                    className="w-full bg-blue-600 text-lg font-semibold text-white hover:bg-blue-700 py-6 shadow-xl transition-all hover:scale-105"
                   >
-                    <option value="">Sélectionnez une formation</option>
-                    <option value="anglais-francophones">
-                      Anglais pour francophones
-                    </option>
-                    <option value="francais-anglophones">
-                      Français pour anglophones
-                    </option>
-                    <option value="francais-francophones">
-                      Français pour Francophones
-                    </option>
-                    <option value="anglais-anglophones">
-                      Anglais pour anglophones
-                    </option>
-                    <option value="together">Together (Programme en ligne)</option>
-                  </select>
-                </div>
+                    {submitContact.isPending
+                      ? "Envoi en cours..."
+                      : "Commencer Mon Aventure"}
+                  </Button>
 
-                <Button
-                  type="submit"
-                  size="lg"
-                  disabled={submitContact.isPending}
-                  className="w-full bg-blue-600 text-lg font-semibold text-white hover:bg-blue-700 py-6 shadow-xl transition-all hover:scale-105"
-                >
-                  {submitContact.isPending
-                    ? "Envoi en cours..."
-                    : "Commencer Mon Aventure"}
-                </Button>
-
-                <p className="text-center text-sm text-gray-400">
-                  En soumettant ce formulaire, vous acceptez d'être contacté
-                  par HTA. Vos données sont sécurisées et ne seront jamais
-                  partagées.
-                </p>
-              </form>
-            </CardContent>
+                  <p className="text-center text-sm text-gray-400">
+                    En soumettant ce formulaire, vous acceptez d'être contacté
+                    par HTA. Vos données sont sécurisées et ne seront jamais
+                    partagées.
+                  </p>
+                </form>
+              </CardContent>
             </Card>
           </AnimatedSection>
         </div>

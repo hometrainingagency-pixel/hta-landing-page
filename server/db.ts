@@ -131,6 +131,7 @@ export async function createContactSubmission(data: {
   fullName: string;
   email: string;
   phone: string;
+  formation?: string;
 }) {
   const db = await getDb();
   if (!db) {
@@ -143,6 +144,7 @@ export async function createContactSubmission(data: {
       fullName: data.fullName,
       email: data.email,
       phone: data.phone,
+      formation: data.formation,
     }).returning();
     logger.info("Contact submission created", { email: data.email });
     return result[0];

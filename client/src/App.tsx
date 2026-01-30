@@ -7,12 +7,14 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import AdminContacts from "./pages/AdminContacts";
 import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/admin"} component={AdminDashboard} />
       <Route path={"/admin/login"} component={AdminLogin} />
       <Route path={"/admin/contacts"} component={AdminContacts} />
       <Route path={"/404"} component={NotFound} />

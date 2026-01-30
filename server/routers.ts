@@ -40,6 +40,7 @@ export const appRouter = router({
             .min(10, "Numéro de téléphone invalide")
             .max(50, "Le numéro de téléphone est trop long")
             .trim(),
+          formation: z.string().optional(),
         })
       )
       .mutation(async ({ input, ctx }) => {
@@ -53,6 +54,7 @@ export const appRouter = router({
             fullName: input.fullName,
             email: input.email,
             phone: input.phone,
+            formation: input.formation,
           });
 
           // Notifier le propriétaire (non bloquant)
