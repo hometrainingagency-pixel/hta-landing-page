@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+Sitemap: https://hta-landing.manus.space/sitemap.xml
+
+# Optimisation pour les crawlers IA
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
